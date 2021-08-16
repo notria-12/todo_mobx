@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:mobx/mobx.dart';
 
 part 'login_store.g.dart';
@@ -16,6 +14,9 @@ abstract class _LoginStore with Store {
   @observable
   bool visiblePassword = false;
 
+  @observable
+  bool loading = false;
+
   @action
   void setEmail(String value) => email = value;
 
@@ -24,6 +25,19 @@ abstract class _LoginStore with Store {
 
   @action
   void isVisible() => visiblePassword = !visiblePassword;
+
+  @action
+  Future<void> login() async {
+    loading = true;
+
+    await Future.delayed(Duration(seconds: 3));
+
+    loading = false;
+  }
+
+  @computed
+  void Function() get loginPressed =>
+      (isEmailValid && isPasswordValid & !loading) ? login : null!;
 
   @computed
   bool get isEmailValid => email.length >= 10;

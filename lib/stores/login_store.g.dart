@@ -9,6 +9,13 @@ part of 'login_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$LoginStore on _LoginStore, Store {
+  Computed<void Function()>? _$loginPressedComputed;
+
+  @override
+  void Function() get loginPressed => (_$loginPressedComputed ??=
+          Computed<void Function()>(() => super.loginPressed,
+              name: '_LoginStore.loginPressed'))
+      .value;
   Computed<bool>? _$isEmailValidComputed;
 
   @override
@@ -76,6 +83,28 @@ mixin _$LoginStore on _LoginStore, Store {
     });
   }
 
+  final _$loadingAtom = Atom(name: '_LoginStore.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.reportRead();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.reportWrite(value, super.loading, () {
+      super.loading = value;
+    });
+  }
+
+  final _$loginAsyncAction = AsyncAction('_LoginStore.login');
+
+  @override
+  Future<void> login() {
+    return _$loginAsyncAction.run(() => super.login());
+  }
+
   final _$_LoginStoreActionController = ActionController(name: '_LoginStore');
 
   @override
@@ -117,6 +146,8 @@ mixin _$LoginStore on _LoginStore, Store {
 email: ${email},
 password: ${password},
 visiblePassword: ${visiblePassword},
+loading: ${loading},
+loginPressed: ${loginPressed},
 isEmailValid: ${isEmailValid},
 isPasswordValid: ${isPasswordValid},
 isFormValid: ${isFormValid}
