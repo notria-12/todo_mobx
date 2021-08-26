@@ -62,10 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 16,
                       ),
                       Observer(builder: (context) {
-                        return Container(
-                          // decoration: BoxDecoration(
-                          //     borderRadius: BorderRadius.circular(32)),
-
+                        return SizedBox(
                           height: 44,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
@@ -77,22 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: Colors.white,
                                   )
                                 : Text('Login'),
-                            onPressed: () {},
+                            onPressed: loginStore.loginPressed,
                           ),
-                          // child: RaisedButton(
-                          //     shape: RoundedRectangleBorder(
-                          //       borderRadius: BorderRadius.circular(32),
-                          //     ),
-                          //     child: loginStore.loading
-                          //         ? CircularProgressIndicator(
-                          //             color: Colors.white,
-                          //           )
-                          //         : Text('Login'),
-                          //     color: Theme.of(context).primaryColor,
-                          //     disabledColor:
-                          //         Theme.of(context).primaryColor.withAlpha(100),
-                          //     textColor: Colors.white,
-                          //     onPressed: () {}),
                         );
                       })
                     ],

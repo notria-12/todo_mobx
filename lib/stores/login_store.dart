@@ -36,8 +36,8 @@ abstract class _LoginStore with Store {
   }
 
   @computed
-  void Function() get loginPressed =>
-      (isEmailValid && isPasswordValid & !loading) ? login : null!;
+  Function() get loginPressed =>
+      (isEmailValid && isPasswordValid & !loading) ? login : () => null;
 
   @computed
   bool get isEmailValid => email.length >= 10;
