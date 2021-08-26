@@ -62,22 +62,37 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 16,
                       ),
                       Observer(builder: (context) {
-                        return SizedBox(
+                        return Container(
+                          // decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.circular(32)),
+
                           height: 44,
-                          child: RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(32),
-                              ),
-                              child: loginStore.loading
-                                  ? CircularProgressIndicator(
-                                      color: Colors.white,
-                                    )
-                                  : Text('Login'),
-                              color: Theme.of(context).primaryColor,
-                              disabledColor:
-                                  Theme.of(context).primaryColor.withAlpha(100),
-                              textColor: Colors.white,
-                              onPressed: loginStore.loginPressed),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Theme.of(context).primaryColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(32))),
+                            child: loginStore.loading
+                                ? CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : Text('Login'),
+                            onPressed: () {},
+                          ),
+                          // child: RaisedButton(
+                          //     shape: RoundedRectangleBorder(
+                          //       borderRadius: BorderRadius.circular(32),
+                          //     ),
+                          //     child: loginStore.loading
+                          //         ? CircularProgressIndicator(
+                          //             color: Colors.white,
+                          //           )
+                          //         : Text('Login'),
+                          //     color: Theme.of(context).primaryColor,
+                          //     disabledColor:
+                          //         Theme.of(context).primaryColor.withAlpha(100),
+                          //     textColor: Colors.white,
+                          //     onPressed: () {}),
                         );
                       })
                     ],
