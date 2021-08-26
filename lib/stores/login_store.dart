@@ -17,6 +17,9 @@ abstract class _LoginStore with Store {
   @observable
   bool loading = false;
 
+  @observable
+  bool loggedIn = false;
+
   @action
   void setEmail(String value) => email = value;
 
@@ -33,11 +36,12 @@ abstract class _LoginStore with Store {
     await Future.delayed(Duration(seconds: 3));
 
     loading = false;
+    loggedIn = true;
   }
 
   @computed
   Function() get loginPressed =>
-      (isEmailValid && isPasswordValid & !loading) ? login : () => null;
+      (isEmailValid && isPasswordValid & !loading) ? login : () {};
 
   @computed
   bool get isEmailValid => email.length >= 10;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:mobx_example2/stores/login_store.dart';
 import 'package:mobx_example2/widgets/custom_icon_button.dart';
 import 'package:mobx_example2/widgets/custom_text_field.dart';
@@ -13,6 +14,21 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   LoginStore loginStore = LoginStore();
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    autorun((_) {
+      print("${loginStore.loggedIn} logado");
+      if (loginStore.loggedIn == true) {
+        print("logou");
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => ListScreen()));
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,7 +90,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: Colors.white,
                                   )
                                 : Text('Login'),
-                            onPressed: loginStore.loginPressed,
+                            onPressed: (loginStore.isEmailValid &&
+                                    loginStore.isPasswordValid &
+                                        !loginStore.loading)
+                                ? loginStore.login
+                                : null,
                           ),
                         );
                       })
