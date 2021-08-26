@@ -35,6 +35,17 @@ mixin _$ListStore on _ListStoreBase, Store {
       ActionController(name: '_ListStoreBase');
 
   @override
+  void addTodo() {
+    final _$actionInfo = _$_ListStoreBaseActionController.startAction(
+        name: '_ListStoreBase.addTodo');
+    try {
+      return super.addTodo();
+    } finally {
+      _$_ListStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setNewTodoTitle(String value) {
     final _$actionInfo = _$_ListStoreBaseActionController.startAction(
         name: '_ListStoreBase.setNewTodoTitle');

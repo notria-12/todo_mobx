@@ -65,7 +65,7 @@ class _ListScreenState extends State<ListScreen> {
                                 : CustomIconButton(
                                     radius: 32,
                                     iconData: Icons.add,
-                                    onTap: () {},
+                                    onTap: listStore.addTodo,
                                   ),
                           ),
                         ),
@@ -73,21 +73,34 @@ class _ListScreenState extends State<ListScreen> {
                           height: 8,
                         ),
                         Expanded(
-                          child: ListView.separated(
-                            itemCount: 10,
+                            child: Observer(
+                          builder: (_) => ListView.separated(
+                            itemCount: listStore.todoList.length,
                             itemBuilder: (_, index) {
-                              return ListTile(
-                                title: Text(
-                                  'Item $index',
-                                ),
-                                onTap: () {},
+                              final todo = listStore.todoList[index];
+                              return Observer(
+                                builder: (_) {
+                                  return ListTile(
+                                    title: Text(
+                                      todo.title,
+                                      style: TextStyle(
+                                          decoration: todo.done
+                                              ? TextDecoration.lineThrough
+                                              : null,
+                                          color: todo.done
+                                              ? Colors.grey
+                                              : Colors.black),
+                                    ),
+                                    onTap: todo.isDone,
+                                  );
+                                },
                               );
                             },
                             separatorBuilder: (_, __) {
                               return Divider();
                             },
                           ),
-                        ),
+                        )),
                       ],
                     ),
                   ),
